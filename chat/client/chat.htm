@@ -14,7 +14,11 @@
 						})
 					}
 				);
-			}			
+			}
+			function clear(){
+				$('#send').val('')
+				$('#send').focus()
+			}				
 			function send(text, id){
 			console.log($('#user').val())
 				$.ajax({
@@ -29,8 +33,15 @@
 				$('#MyButton').click(function(){
 					send($('#send').val(),$('#user').val());
 					getMessages();
+					clear();
 				});
-				
+				$('#send').keypress(function(e){
+					if(e.which == 13) {
+						send($('#send').val(),$('#user').val());
+						getMessages();
+						clear();
+					}
+				});
          		window.setInterval(function(){
 					getMessages();
 				}, 500);

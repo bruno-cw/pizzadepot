@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+		</script>
+		<script>
+			function getMessages(){
+				$.getJSON("http://172.22.143.199:8081/chat/messages",
+					function(data) {
+						$('#messages').empty()
+						var messages = data.messages.split('\n')
+						messages.forEach(function(data){
+							$('#messages').append("<p>"+data+"</p>");
+						})
+					}
+				);
+			}			
+			function send(text, id){
+			console.log($('#user').val())
+				$.ajax({
+					url: 'http://172.22.143.199:8081/chat/messages?send='+text+'&id='+id,
+					type: 'PUT',
+					success: function(response) {
+						console.log(response)
+					}
+				});
+			}			
+			$(document).ready(function(){
+				$('#MyButton').click(function(){
+					send($('#send').val(),$('#user').val());
+					getMessages();
+				});
+				
+         		window.setInterval(function(){
+					getMessages();
+				}, 500);
+			});
+		</script>
+	</head>
+	<body>
+		<div id="messages"></div>
+		<input id="user" type="text"/>
+		<input id="send" type="text"/><br/>
+		<input type="button" value="Send" id="MyButton" >
+</body>
+</html>

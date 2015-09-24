@@ -1,5 +1,34 @@
 <html>
 	<head>
+		<style type="text/css">
+			body, input {
+				font-family: Terminal;
+				background-color : black;
+			}
+			#messages {
+				display:block;
+				width: 100%;
+				height: 70%;
+				overflow-y : scroll ;
+			}
+			#send {
+				width: 84.5%;
+			}
+			#user {
+				width: 9%;
+			}
+			#button {
+				width : 5%
+			}
+			#panel {
+				background-color : black
+			}
+			#messages, input {
+				background-color : black;
+				color : green;
+				font-size : small
+			}
+		</style>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 
 		</script>
@@ -30,28 +59,29 @@
 				});
 			}			
 			$(document).ready(function(){
-				$('#MyButton').click(function(){
+				$('#button').click(function(){
 					send($('#send').val(),$('#user').val());
-					getMessages();
 					clear();
 				});
 				$('#send').keypress(function(e){
 					if(e.which == 13) {
 						send($('#send').val(),$('#user').val());
-						getMessages();
 						clear();
 					}
 				});
          		window.setInterval(function(){
 					getMessages();
-				}, 500);
+				}, 750);
 			});
 		</script>
 	</head>
 	<body>
 		<div id="messages"></div>
-		<input id="user" type="text"/>
-		<input id="send" type="text"/><br/>
-		<input type="button" value="Send" id="MyButton" >
+		<br/>
+		<div id="panel">
+			<input id="user" type="text"/>
+			<input id="send" type="text"/>
+			<input type="button" value="Send" id="MyButton" >
+		</div>
 </body>
 </html>

@@ -34,7 +34,7 @@
 		</script>
 		<script>
 			function getMessages(){
-				$.getJSON("http://172.22.143.199:8081/chat/messages",
+				$.getJSON("http://{IP_ADDRESS}:{PORT}/chat/messages",
 					function(data) {
 						$('#messages').empty()
 						var messages = data.messages.split('\n')
@@ -51,7 +51,7 @@
 			function send(text, id){
 			console.log($('#user').val())
 				$.ajax({
-					url: 'http://172.22.143.199:8081/chat/messages?send='+text+'&id='+id,
+					url: 'http://{IP_ADDRESS}:{PORT}/chat/messages?send='+text+'&id='+id,
 					type: 'PUT',
 					success: function(response) {
 						console.log(response)

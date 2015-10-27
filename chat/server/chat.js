@@ -4,12 +4,15 @@ var fs = require('fs');
 var ip = require('./ipfier.js')
 var replaceStream = require('replacestream')
 
-
-var clients = [];
-var messages = ['[server]Hello World \n']; 
+var clients = []; 							//store client nicknames
+var messages = ['[server]Hello World \n']; 	//store messages
 
 console.log(ip.getIp(),process.argv[2]);
 
+/**
+ * creates an http server responsible for serving static html content
+ * and rest interface  
+ */
 http.createServer(function (request,response) {
 	
 	var query = url.parse(request.url,true)
@@ -21,13 +24,15 @@ http.createServer(function (request,response) {
 	}else if (query.pathname == '/chat/messages'){		
 		response.writeHead(200, { 'Content-Type': 'application/json' });
 		response.end(JSON.stringify({'messages' : messages}));
-	}
-	else if (query.pathname == '/chat'){
+	
+	}else if (query.pathname == '/chat'){
 		response.writeHead(200, { 'Content-Type': 'text/html' });
-
 		fs.createReadStream('../client/chat.htm' )
 		.pipe(replaceStream('{IP_ADDRESS}:{PORT}', ip.getIp() +':'+process.argv[2]))
 		.pipe(response);
+	}else{
+		response.writeHead(400)
+		response.end("Bad request")
 	}
-
+	
 }).listen(process.argv[2])

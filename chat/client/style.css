@@ -1,0 +1,33 @@
+body, input {
+	font-family: Terminal;
+	background-color: black;
+}
+
+#messages {
+	display: block;
+	width: 100%;
+	height: 70%;
+	overflow-y: scroll;
+}
+
+#send {
+	width: 84.5%;
+}
+
+#user {
+	width: 9%;
+}
+
+#button {
+	width: 5%
+}
+
+#panel {
+	background-color: black
+}
+
+#messages, input {
+	background-color: black;
+	color: green;
+	font-size: small
+}

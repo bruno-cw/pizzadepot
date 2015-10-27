@@ -1,18 +1,19 @@
+/**
+ * http server responsible for serving the rest interface  
+ */
 var http = require('http');
 var url = require('url');
-var fs = require('fs');
 var ip = require('./ipfier.js')
-var replaceStream = require('replacestream')
+var fork = require('child_process').fork;
 
 var clients = []; 							//stores client nicknames
 var messages = ['[server]Hello World']; 	//stores messages
-var clientform = '../client/chat.htm'		//stores clientform location
+var clientform = ''		//stores clientform location
 
-console.log(ip.getIp(),process.argv[2]);
+console.log("rest api loaded:",ip.getIp(),process.argv[2]);
 
 /**
- * creates an http server responsible for serving static html content
- * and rest interface  
+ * start the rest api
  */
 http.createServer(function (request,response) {
 
@@ -28,27 +29,28 @@ http.createServer(function (request,response) {
 			response.end();
 		}
 		
-		if (request.method == 'GET'){
+		else if (request.method == 'GET'){
 			response.writeHead(200, {'content-Type': 'application/json'});
+			//TODO: send in client information
 			response.end(JSON.stringify({'messages' : messages}));
 		}
 		
 		response.writeHead(400);
 		response.end("400 - Bad Request");
 		break;
-		
-	case '/chat':
-	case '/chat/':
+	
 	case '/':
-		response.writeHead(200, {'content-Type': 'text/html'});
-		fs.createReadStream(clientform)
-			.pipe(replaceStream('{IP_ADDRESS}:{PORT}', ip.getIp() +':'+process.argv[2]))
-				.pipe(response);
-		break;
-		
+		//TODO: api-descriptor
+		response.redirect('/chat/messages')
 	default :
 		response.writeHead(404);
 		response.end("404 - Not found");
 	}
 	
 }).listen(process.argv[2])
+
+/**
+ * call static html server:
+ */
+
+var child = fork('./chat_static.js',[ip.getIp(),process.argv[2]]);

@@ -1,7 +1,6 @@
 /**
  * Simple class that gets local IP, for testing purposes
  */
-
 var os = require('os');
 
 ipfier = exports;

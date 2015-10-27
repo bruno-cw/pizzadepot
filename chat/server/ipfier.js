@@ -1,6 +1,5 @@
 /**
  * Simple class that gets local IP, for testing purposes
- * 
  */
 
 var os = require('os');
@@ -8,8 +7,7 @@ var os = require('os');
 ipfier = exports;
 
 ipfier.getIp = function getIp() { 
-	ip = ''
-	
+	ip = ''	
 	Object.keys(os.networkInterfaces()).forEach(function (ifname) {
 	var alias = 0;
 
@@ -19,8 +17,7 @@ ipfier.getIp = function getIp() {
 		}
 		ip = iface.address;
 		++alias;
-	});
-	
+	});	
 });
 	return ip;
 }

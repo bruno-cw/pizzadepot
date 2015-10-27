@@ -4,8 +4,8 @@ var fs = require('fs');
 var ip = require('./ipfier.js')
 var replaceStream = require('replacestream')
 
-var clients = []; 							//store client nicknames
-var messages = ['[server]Hello World \n']; 	//store messages
+var clients = []; 							//stores client nicknames
+var messages = ['[server]Hello World']; 	//stores messages
 
 console.log(ip.getIp(),process.argv[2]);
 
@@ -14,25 +14,36 @@ console.log(ip.getIp(),process.argv[2]);
  * and rest interface  
  */
 http.createServer(function (request,response) {
+
+	var path = (url.parse(request.url,true)).pathname
 	
-	var query = url.parse(request.url,true)
-	if (query.pathname == '/chat/messages' && request.method == 'PUT'){
-		messages.push('[' + query.query.id +']'+ query.query.send + '\n')
-		response.writeHead(200);
-		response.end();
+	switch(path){
+	case '/chat/messages' :
 		
-	}else if (query.pathname == '/chat/messages'){		
-		response.writeHead(200, { 'Content-Type': 'application/json' });
-		response.end(JSON.stringify({'messages' : messages}));
-	
-	}else if (query.pathname == '/chat'){
-		response.writeHead(200, { 'Content-Type': 'text/html' });
+		if(request.method == 'POST'){
+			console.log(query.query.id, query.query.send)
+			messages.push('[' + query.query.id +']'+ query.query.send)
+			response.writeHead(200, {'content-Type': 'application/json'});
+			response.end();
+		}
+		if (request.method == 'GET'){
+			response.writeHead(200, {'content-Type': 'application/json'});
+			response.end(JSON.stringify({'messages' : messages}));
+		}
+		response.writeHead(400);
+		response.end("400 - Bad Request");
+		break;
+		
+	case '/chat' :
+	case '/' :
+		response.writeHead(200, {'content-Type': 'text/html'});
 		fs.createReadStream('../client/chat.htm' )
 		.pipe(replaceStream('{IP_ADDRESS}:{PORT}', ip.getIp() +':'+process.argv[2]))
 		.pipe(response);
-	}else{
-		response.writeHead(400)
-		response.end("Bad request")
+		break;
+		
+	default :
+		response.writeHead(404);
+		response.end("404 - Not found");
 	}
-	
 }).listen(process.argv[2])

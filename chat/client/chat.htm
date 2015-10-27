@@ -51,7 +51,7 @@
 			console.log($('#user').val())
 				$.ajax({
 					url: 'http://{IP_ADDRESS}:{PORT}/chat/messages?send='+text+'&id='+id,
-					type: 'PUT',
+					type: 'POST',
 					success: function(response) {
 					},
 					error: function (error){

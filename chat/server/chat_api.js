@@ -25,7 +25,9 @@ http.createServer(function (request,response) {
 		if(request.method == 'POST'){
 			console.log(query.query.id, query.query.send)
 			messages.push('[' + query.query.id +']'+ query.query.send)
-			response.writeHead(200, {'content-Type': 'application/json'});
+			response.writeHead(200, {'content-Type': 'application/json'})
+			response.writeHead({'Access-Control-Allow-Origin': 'http://'+ip.getIp()});
+			
 			response.end();
 		}
 		
@@ -47,10 +49,8 @@ http.createServer(function (request,response) {
 		response.end("404 - Not found");
 	}
 	
-}).listen(process.argv[2])
+}).listen(process.argv[2],ip.getIp())
 
-/**
- * call static html server:
- */
 
+//call static html server:
 var child = fork('./chat_static.js',[ip.getIp(),process.argv[2]]);

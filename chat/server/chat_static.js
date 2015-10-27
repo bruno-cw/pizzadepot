@@ -1,6 +1,11 @@
 /**
- *  server responsible for static content
- *  @args: port
+ *  server responsible for static content</br>
+ *  can be started completely in standalone fashion</br>
+ *  starts at default port 8080
+ *  
+ *  
+ *  @args 	argv[2]: rest api host</br>
+ *  		argv[3]: rest api port
  */
 
 var express = require('express');
@@ -29,7 +34,7 @@ app.get('/chat', function(req,res){
 })
 
 
-app.listen(DEFAULT_HTTP_PORT, function () {
+app.listen(DEFAULT_HTTP_PORT,process.argv[2], function () {
 
 });
 console.log("static server loaded:",process.argv[2],DEFAULT_HTTP_PORT);

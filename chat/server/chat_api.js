@@ -17,7 +17,8 @@ console.log("rest api loaded:",ip.getIp(),process.argv[2]);
  */
 http.createServer(function (request,response) {
 
-	var path = (url.parse(request.url,true)).pathname
+	var query = url.parse(request.url,true)
+	var path = query.pathname
 	
 	switch(path){
 	case '/chat/messages' :
@@ -25,16 +26,14 @@ http.createServer(function (request,response) {
 		if(request.method == 'POST'){
 			console.log(query.query.id, query.query.send)
 			messages.push('[' + query.query.id +']'+ query.query.send)
-			response.writeHead(200, {'content-Type': 'application/json'})
-			response.writeHead({'Access-Control-Allow-Origin': 'http://'+ip.getIp()});
-			
+			response.writeHead(200, {'content-Type': 'application/jsonp'},{ 'Access-Control-Allow-Origin': 'http://'+ip.getIp()})
 			response.end();
 		}
 		
 		else if (request.method == 'GET'){
 			response.writeHead(200, {'content-Type': 'application/json'});
 			//TODO: send in client information
-			response.end(JSON.stringify({'messages' : messages}));
+			response.end('callback('+JSON.stringify({'messages' : messages})+')');
 		}
 		
 		response.writeHead(400);

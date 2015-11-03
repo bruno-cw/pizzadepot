@@ -17,8 +17,8 @@ var app = express();
 var DEFAULT_HTTP_PORT = '80'
 var dir = '../client/'; //store client-side static dir
 
-app.get('/chat.html', function(req,res){
-	fs.createReadStream(dir+'/chat.html')
+app.get('/client.js', function(req,res){
+	fs.createReadStream(dir+'/client.js')
 	.pipe(replaceStream('{IP_ADDRESS}:{PORT}', process.argv[2] +':'+ process.argv[3]))//server will always start at 8080
 	.pipe(res);
 })

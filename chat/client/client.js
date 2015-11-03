@@ -1,13 +1,26 @@
 function getMessages(){
-	$.getJSON("http://{IP_ADDRESS}:{PORT}/chat/messages",
-			function(data) {
+	$.ajax(
+			{	url:"http://{IP_ADDRESS}:{PORT}/chat/messages?callback=callback",
+				type: 'GET'
+				dataType: 'jsonp',
+				jsonpCallback : 'callback',
+				success:function(data) {
+					
+					$('#messages').empty()
+					
+					data.messages.forEach(
+						function(data){
+							$('#messages').append("<p>"+data+"</p>");
+						}
+					)
+				}
 
-		$('#messages').empty()
-		data.messages.forEach(function(data){
-			$('#messages').append("<p>"+data+"</p>");
-		})
-	}
+			}
 	);
+}
+
+function callback(data){
+	return data
 }
 function clear(){
 	$('#send').val('')

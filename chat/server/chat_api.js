@@ -24,6 +24,7 @@ http.createServer(function (request,response) {
 	case '/chat/messages' :
 
 		if(request.method == 'POST'){
+			//TODO: pass json in body instead of query string
 			console.log(query.query.id, query.query.send)
 			messages.push('[' + query.query.id +']'+ query.query.send)
 			response.writeHead(200, {'content-Type': 'application/jsonp'},{ 'Access-Control-Allow-Origin': 'http://'+ip.getIp()})

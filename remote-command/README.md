@@ -1,1 +1,3 @@
-I hope I don't have to tell you how unsafe this is.
+client-server app for executing shell commands on server
+
+hope I dont have to tell you how unsafe is it

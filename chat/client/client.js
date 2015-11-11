@@ -1,8 +1,7 @@
 function getMessages(){
-	$.ajax({	url:"http://{IP_ADDRESS}:{PORT}/chat/messages?callback=callback",
+	$.ajax({	url:"http://{IP_ADDRESS}:{PORT}/chat/messages",
 		type: 			'GET',
-		dataType: 		'jsonp',
-		jsonpCallback : 'callback',
+		dataType: 		'json',
 		success:		
 			function(data) {
 				$('#messages').empty()
@@ -13,9 +12,7 @@ function getMessages(){
 	});
 }
 
-function callback(data){
-	return data
-}
+
 function clear(){
 	$('#send').val('')
 	$('#send').focus()

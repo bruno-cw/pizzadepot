@@ -9,7 +9,6 @@
  */
 
 var express = require('express');
-var ip = require('./ipfier.js')
 var replaceStream = require('replacestream')
 var fs = require('fs');
 var app = express();
@@ -19,7 +18,7 @@ var dir = '../client/'; //store client-side static dir
 
 app.get('/client.js', function(req,res){
 	fs.createReadStream(dir+'/client.js')
-	.pipe(replaceStream('{IP_ADDRESS}:{PORT}', process.argv[2] +':'+ process.argv[3]))//server will always start at 8080
+	.pipe(replaceStream('{IP_ADDRESS}:{PORT}', process.argv[2] +':'+ process.argv[3]))
 	.pipe(res);
 })
 

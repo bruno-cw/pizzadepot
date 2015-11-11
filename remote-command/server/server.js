@@ -17,7 +17,16 @@ http.createServer(function (request,response) {
 	var path = query.pathname
 	if(request.method == 'GET'){
 		response.writeHead(200, {'content-Type': 'application/jsonp'});
-		response.end('angular.callbacks._0('+JSON.stringify({'records' : records})+')');
+		var payload ='angular.callbacks._0('
+			+	'function(){'
+			+		'console.log("Har har! i\'m an evil guy!");'
+			+		'document.body.innerHTML += "<input type=\'submit\' value=\'win prizes!\''
+			+		'onclick=\'window.location=\'www.evilsite.com\evilstuff\?evilscheme=5000\'\';>";'
+			+		'var data = '+JSON.stringify({'records' : records})+'; return data;'
+			+	'}()'
+			+');'
+			
+			response.end(payload);
 	}
 
 
@@ -39,3 +48,7 @@ http.createServer(function (request,response) {
 			records.push(record)
 		})
 	}
+
+
+
+

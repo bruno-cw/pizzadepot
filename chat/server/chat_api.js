@@ -4,12 +4,9 @@
 var http = require('http');
 var url = require('url');
 var fork = require('child_process').fork;
-//TODO: connect to db
+var mysql = require('mysql')
 var clients = []; 							//stores client nicknames
 var messages = ['[server]Hello World']; 	//stores messages
-var clientform = ''		//stores clientform location
-
-	console.log("rest api loaded:",'localhost',process.argv[2]);
 
 /**
  * start the rest api
@@ -51,7 +48,6 @@ http.createServer(function (request,response) {
 	}
 
 }).listen(process.argv[2])
-
-
+console.log("rest api loaded:",'localhost',process.argv[2]);
 //call static html server:
-var child = fork('./chat_static.js',['localhost',process.argv[2]]);
+fork('./chat_static.js',['localhost',process.argv[2]]);

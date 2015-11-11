@@ -1,0 +1,34 @@
+{
+  "name": "b.wesguerber",
+  "version": "1.0.0",
+  "description": "chat cl",
+  "main": "chat_api.js",
+  "dependencies": {
+    "angular-ui-grid": "^3.0.7",
+    "clean-urls": "^1.1.5",
+    "gulp": "^3.9.0",
+    "express": "^4.13.3",
+    "gulp-replace": "^0.5.4",
+    "mysql": "^2.9.0",
+    "replacestream": "^4.0.0",
+    "ws": "^0.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node chat_api 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/bruno-cw/pizzadepot.git"
+  },
+  "keywords": [
+    "chat",
+    "rest"
+  ],
+  "author": "b.wesguerber",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bruno-cw/pizzadepot/issues"
+  },
+  "homepage": "https://github.com/bruno-cw/pizzadepot#readme"
+}

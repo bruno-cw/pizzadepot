@@ -21,8 +21,8 @@ function send(userid,message){
 }
 
 function clear(){
-	$('#send').val('');
-	$('#send').focus();
+	$('#message').val('');
+	$('#message').focus();
 }
 
 
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	$('#button').click(function(e) {
 		send($('#userid').val(),$('#message').val());
 	})
-	$('#button').keypress(function(e){
+	$('#message').keypress(function(e){
 		if(e.which == 13) {
 			send($('#userid').val(),$('#message').val());
 		}

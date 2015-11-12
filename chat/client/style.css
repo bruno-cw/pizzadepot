@@ -1,6 +1,5 @@
 body, input {
 	font-family: Terminal;
-	background-color: black;
 }
 
 #messages {
@@ -22,12 +21,7 @@ body, input {
 	width: 5%
 }
 
-#panel {
-	background-color: black
-}
-
 #messages, input {
-	background-color: black;
-	color: green;
+	color: black;
 	font-size: small
 }

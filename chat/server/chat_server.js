@@ -1,16 +1,11 @@
 var express = require('express');
-var fs = require('fs');
 var url = require('url');
-var bodyParser = require('body-parser')
 
 var messages = ['[server]Hello World']; 
 var app = express();
 var dir = '../client/';
 
 app.use(express.static(dir));
-app.use(bodyParser.json());
-
-
 app.get('/', function(req,res){
 	res.redirect('/chat')
 })

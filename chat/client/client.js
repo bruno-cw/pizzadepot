@@ -1,14 +1,15 @@
 function getMessages(){
-	$.ajax({	url:"http://{IP_ADDRESS}:{PORT}/chat/messages",
+	$.ajax({	
+		url:			'chat/messages',
 		type: 			'GET',
 		dataType: 		'json',
 		success:		
 			function(data) {
-				$('#messages').empty()
-				data.messages.forEach(function(data){
-						$('#messages').append("<p>"+data+"</p>");
-					})
-			}
+			$('#messages').empty()
+			data.messages.forEach(function(data){
+				$('#messages').append("<p>"+data+"</p>");
+			})
+		}
 	});
 }
 
@@ -20,7 +21,7 @@ function clear(){
 function send(text, id){
 	console.log($('#user').val())
 	$.ajax({
-		url: 'http://{IP_ADDRESS}:{PORT}/chat/messages?send='+text+'&id='+id,
+		url: 'chat/messages?send='+text+'&id='+id,
 		type: 'POST',
 		success: function(response) {
 		},

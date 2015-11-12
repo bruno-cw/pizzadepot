@@ -16,16 +16,8 @@ http.createServer(function (request,response) {
 	var query = url.parse(request.url,true)
 	var path = query.pathname
 	if(request.method == 'GET'){
-		response.writeHead(200, {'content-Type': 'application/jsonp'});
-		var payload ='angular.callbacks._0('
-			+	'function(){'
-			+		'console.log("Har har! i\'m an evil guy!");'
-			+		'document.body.innerHTML += "<input type=\'submit\' value=\'win prizes!\''
-			+		'onclick=\'window.location=\'www.evilsite.com\evilstuff\?evilscheme=5000\'\';>";'
-			+		'var data = '+JSON.stringify({'records' : records})+'; return data;'
-			+	'}()'
-			+');'
-			
+		response.setHeader(200, {'content-Type': 'application/jsonp'});
+		var payload =JSON.stringify({'records' : records})
 			response.end(payload);
 	}
 

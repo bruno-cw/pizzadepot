@@ -10,11 +10,11 @@ body, input {
 	overflow-y: scroll;
 }
 
-#send {
-	width: 84.5%;
+#message {
+	width: 80.5%;
 }
 
-#user {
+#id {
 	width: 9%;
 }
 

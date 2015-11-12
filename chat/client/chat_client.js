@@ -1,4 +1,4 @@
-function getMessages(){
+function receive(){
 	$.ajax({	
 		url:			'chat/messages',
 		type: 			'GET',
@@ -12,37 +12,32 @@ function getMessages(){
 		}
 	});
 }
-
+function send(userid,message){
+	$.ajax({
+		method: "POST",
+		url: "/chat/messages?id="+userid+'&message='+message
+	})
+	clear();
+}
 
 function clear(){
-	$('#send').val('')
-	$('#send').focus()
-}				
-function send(text, id){
-	console.log($('#user').val())
-	$.ajax({
-		url: 'chat/messages?send='+text+'&id='+id,
-		type: 'POST',
-		success: function(response) {
-		},
-		error: function (error){
-			console.log(error)
-		}
-	});
-}			
+	$('#send').val('');
+	$('#send').focus();
+}
+
+
+
 $(document).ready(function(){
-	$('#button').click(function(){
-		send($('#send').val(),$('#user').val());
-		clear();
-	});
-	$('#send').keypress(function(e){
+	$('#button').click(function(e) {
+		send($('#userid').val(),$('#message').val());
+	})
+	$('#button').keypress(function(e){
 		if(e.which == 13) {
-			send($('#send').val(),$('#user').val());
-			clear();
+			send($('#userid').val(),$('#message').val());
 		}
 	});
-	//this seems kinda wrong
+
 	window.setInterval(function(){
-		getMessages();
+		receive();
 	}, 750);
 });

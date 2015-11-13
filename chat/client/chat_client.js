@@ -6,12 +6,13 @@ function receive(){
 		success:		
 			function(data) {
 			$('#messages').empty()
-			data.messages.forEach(function(data){
-				$('#messages').append("<p>"+data+"</p>");
+			data.messages.forEach(function(message){
+				$('#messages').append("<p>["+message.username+"] "+message.message+"</p>");
 			})
 		}
 	});
 }
+
 function send(userid,message){
 	$.ajax({
 		method: "POST",
@@ -24,8 +25,6 @@ function clear(){
 	$('#message').val('');
 	$('#message').focus();
 }
-
-
 
 $(document).ready(function(){
 	$('#button').click(function(e) {

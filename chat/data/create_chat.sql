@@ -8,22 +8,25 @@ USE `chat` ;
 -- Table `chat`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chat`.`user` (
-  `iduser` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NULL,
+  `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(200) NULL,
-  PRIMARY KEY (`iduser`))
-  
+  PRIMARY KEY (`username`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+ENGINE = InnoDB;
+
+
 -- -----------------------------------------------------
 -- Table `chat`.`message`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `chat`.`message` (
   `id_message` INT NOT NULL AUTO_INCREMENT,
   `message` VARCHAR(200) NULL,
-  `id_user` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_message`),
-  INDEX `fk_message_user_idx` (`id_user` ASC),
+  INDEX `fk_message_user_idx` (`username` ASC),
   CONSTRAINT `fk_message_user`
-    FOREIGN KEY (`id_user`)
-    REFERENCES `chat`.`user` (`iduser`)
+    FOREIGN KEY (`username`)
+    REFERENCES `chat`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;

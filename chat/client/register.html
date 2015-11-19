@@ -1,0 +1,37 @@
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./reg_client.js"></script>
+</head>
+<body>
+	<div id="panel">
+		<form id="regform">
+			<input id="userid" 	 type="text" 		name="userid" /> <br/>
+			<input id="password" type="password" 	name="password"> <br/>
+			<input id="button"	 type="button" 		value="send" />
+		</form>
+	</div>
+	<div id="result"></div>
+
+
+	<script>
+$("#regform").submit(function(event) {
+	event.preventDefault();
+	var $form = $(this),
+		userid = $form.find("input[name='userid']").val(),
+		pwd	= $form.find("input[name='password']"),
+	    url = $form.attr("action");
+		
+ 	var posting = $.post('/chat/users', { username: userid, password : pwd});
+ 	
+ 	posting.done(function(data) {
+    	var content = $(data).find("#content");
+    	$("#result").empty().append(content);
+  	});
+});
+</script>
+</body>
+</html>

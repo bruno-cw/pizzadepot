@@ -16,7 +16,9 @@ function receive(){
 function send(userid,message){
 	$.ajax({
 		method: "POST",
-		url: "/chat/messages?id="+userid+'&message='+message
+		url: "/chat/messages",
+		data : JSON.stringify({'id' : userid, 'message' : message}),
+		dataType: 'json',
 	})
 	clear();
 }
@@ -35,8 +37,13 @@ $(document).ready(function(){
 			send($('#userid').val(),$('#message').val());
 		}
 	});
-
-	window.setInterval(function(){
-		receive();
-	}, 750);
+	var connection = new WebSocket('ws://localhost:8080/chat/messages');
+	connection.onmessage = function(e){
+		var server_message = e.data;
+		console.log(server_message);
+	}
+	connection.onopen = function(){
+		console.log('Connection open!');
+		connection.send('Hey server, whats up?');
+	}
 });

@@ -42,14 +42,6 @@ app.listen(process.argv[2]);
 
 console.log("server loaded:",process.argv[2]);
 
-//controller functions//
-validateUser = function(username){
-
-}
-
-validateMessage = function(message){
-
-}
 
 //db functions//
 
